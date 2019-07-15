@@ -63,7 +63,7 @@ else
 fi
 
 # Compilation and install
-INSTALL_DIR=$CONDA_PREFIX/envs/dsp
+INSTALL_DIR=$CONDA_PREFIX
 if [ ! -d "build" ]; then
     echo "Compiling ..."
     mkdir build
