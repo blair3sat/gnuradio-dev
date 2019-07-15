@@ -13,7 +13,7 @@ else
 fi
 
 # Packages install
-packages=(git cmake g++ libboost-all-dev libcppunit-dev liblog4cpp5-dev libgmp-dev swig libfftw3-dev libcomedi-dev libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev libzmq3-dev adwaita-icon-theme-full)
+packages=(git cmake g++ libboost-all-dev libcppunit-dev liblog4cpp5-dev libgmp-dev swig libfftw3-dev libcomedi-dev libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev libzmq3-dev adwaita-icon-theme-full doxygen libuhd-dev uhd-host)
 
 to_install=()
 for i in ${!packages[@]}; do
