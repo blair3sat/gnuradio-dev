@@ -36,6 +36,9 @@ else
     sudo apt-get install ${to_install[@]} -yqq
 fi
 
+# Move to non-shared folder to install GNURadio
+cd ~/
+
 # Repository + config cloning
 if [[ -d gnuradio ]]; then # for file "if [-f /home/rama/file]"
     echo "Repository already found"
