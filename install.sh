@@ -73,7 +73,7 @@ if [ ! -d "build" ]; then
     make -j$(nproc)
     sudo make install
     sudo ldconfig
-    ln -s $CONDA_PREFIX/envs/dsp/lib/python3.7/dist-packages/ $CONDA_PREFIX/envs/dsp/lib/python3.7/site-packages
+    ln -s $CONDA_PREFIX/lib/python3.7/dist-packages/ $CONDA_PREFIX/lib/python3.7/site-packages
 fi
 
 # Environment var setup + config
@@ -89,7 +89,7 @@ export GNU_RADIO_PATH=$INSTALL_DIR
 export PATH=/opt/qt/bin:\$PATH:$INSTALL_DIR/bin
 export LD_LIBRARY_PATH=/opt/qt/lib:/usr/local/lib:\$LD_LIBRARY_PATH:$INSTALL_DIR/lib
 export PKG_CONFIG_PATH=/opt/qt/lib/pkgconfig:\$PKG_CONFIG_PATH:$INSTALL_DIR/lib/pkgconfig
-export PYTHONPATH=$PYTHONPATH:$CONDA_PREFIX/envs/dsp/lib/python3.7/dist-packages
+export PYTHONPATH=$PYTHONPATH:$CONDA_PREFIX/lib/python3.7/dist-packages
 EOF
 
 fi
