@@ -49,7 +49,7 @@ fi
 cd gnuradio
 if [ ! -f gr_py3_env.yml ]; then
     echo "Downloading environment file"
-    wget -q https://gist.githubusercontent.com/rytse/dd66e066b4b218022ac111e4a3618660/raw/66aca50cc7a66e0f212301f8e700402a0a6acf7c/gr_py3_env.yml
+    wget -q https://gist.githubusercontent.com/rytse/dd66e066b4b218022ac111e4a3618660/raw/23020fd5b396f956647c306dc6eff786f32b7cad/gr_py3_env.yml
 fi
 
 # Conda package install
