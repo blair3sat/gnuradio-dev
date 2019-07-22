@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     config.ssh.forward_agent = true
     config.vm.provider "virtualbox" do |v|
         v.name = "blair-cubesat"
-        v.memory = 4096 #1024
+        v.memory = 8192
         v.cpus = 4
     end
 end

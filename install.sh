@@ -1,3 +1,8 @@
+# Setup conda the way Continuum's Docker images do
+sudo add-apt-repository -y ppa:pi-rho/dev
+sudo apt update --fix-missing 
+sudo apt install -y vim tmux git
+
 # Conda Install
 # Source just in case conda was installed
 source ~/.bashrc
@@ -7,16 +12,26 @@ else
     echo "No \`conda\` install found. Either conda has not been initialized with this shell, or is not installed."
     echo "Installing now..."
 
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    bash Miniconda3-latest-Linux-x86_64.sh
-    source ~/.bashrc
+	# Install conda
+    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.6.14-Linux-x86_64.sh -O ~/miniconda.sh
+    bash ~/miniconda.sh -b -p $HOME/miniconda3
+    rm ~/miniconda.sh
+	
+	# Activate and clean conda
+	. ~/miniconda3/etc/profile.d/conda.sh
+	conda activate base
+	conda clean -tipsy
+	
+	# Set up bashrc to work with conda
+	echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+	echo "conda activate base" >> ~/.bashrc
 fi
 
 # Packages install
 packages=(git cmake g++ libboost-all-dev libcppunit-dev liblog4cpp5-dev libgmp-dev swig libfftw3-dev libcomedi-dev libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev libzmq3-dev adwaita-icon-theme-full doxygen libuhd-dev uhd-host)
 
 to_install=()
-for i in ${!packages[@]}; do
+for i in ${packages[@]}; do
     installed=false
     if [[ $(dpkg -s ${packages[i]} 2>/dev/null) == *"install ok installed"* ]]; then
         installed=true
@@ -28,7 +43,7 @@ for i in ${!packages[@]}; do
     echo "Package ${packages[i]} is $s"
 done
 
-if [[ ${#to_install[@]} -eq 0 ]]; then
+if [[ ${to_install[@]} -eq 0 ]]; then
     echo "All packages installed"
 else
     echo "Installing missing packages: ${to_install[@]}"
@@ -45,7 +60,12 @@ if [[ -d gnuradio ]]; then # for file "if [-f /home/rama/file]"
 else
     echo "Setting up repository ..."
     git clone -q --recurse-submodules --depth 1 https://github.com/gnuradio/gnuradio
+	cd gnuradio
+	git fetch -q --tags
+	git checkout v3.8.0.0-rc2
+	cd ..
 fi
+
 cd gnuradio
 if [ ! -f gr_py3_env.yml ]; then
     echo "Downloading environment file"
@@ -63,7 +83,7 @@ else
 fi
 
 # Compilation and install
-INSTALL_DIR=$CONDA_PREFIX
+INSTALL_DIR=~/miniconda3/envs/dsp
 if [ ! -d "build" ]; then
     echo "Compiling ..."
     mkdir build
@@ -76,7 +96,7 @@ if [ ! -d "build" ]; then
     make -j$(nproc)
     sudo make install
     sudo ldconfig
-    ln -s $CONDA_PREFIX/lib/python3.7/dist-packages/ $CONDA_PREFIX/lib/python3.7/site-packages
+    ln -s $INSTALL_DIR/lib/python3.7/dist-packages/ $INSTALL_DIR/lib/python3.7/site-packages
 fi
 
 # Environment var setup + config
