@@ -1,9 +1,9 @@
-# Setup conda the way Continuum's Docker images do
+# Install packages
 sudo add-apt-repository -y ppa:pi-rho/dev
 sudo apt update --fix-missing 
-sudo apt install -y vim tmux git
+sudo apt install -y vim tmux git cmake g++ libboost-all-dev libcppunit-dev liblog4cpp5-dev libgmp-dev swig libfftw3-dev libcomedi-dev libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev libzmq3-dev adwaita-icon-theme-full doxygen libuhd-dev uhd-host
 
-# Conda Install
+# Install conda
 # Source just in case conda was installed
 source ~/.bashrc
 if [[ -x "$(which conda)" ]]; then
@@ -25,30 +25,6 @@ else
 	# Set up bashrc to work with conda
 	echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 	echo "conda activate base" >> ~/.bashrc
-fi
-
-# Packages install
-packages=(git cmake g++ libboost-all-dev libcppunit-dev liblog4cpp5-dev libgmp-dev swig libfftw3-dev libcomedi-dev libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev libzmq3-dev adwaita-icon-theme-full doxygen libuhd-dev uhd-host)
-
-to_install=()
-for i in ${packages[@]}; do
-    installed=false
-    if [[ $(dpkg -s ${packages[i]} 2>/dev/null) == *"install ok installed"* ]]; then
-        installed=true
-    else
-        to_install+=(${packages[i]})
-    fi
-    s=""
-    [[ "$installed" == true ]] && s="installed" || s="not installed"
-    echo "Package ${packages[i]} is $s"
-done
-
-if [[ ${to_install[@]} -eq 0 ]]; then
-    echo "All packages installed"
-else
-    echo "Installing missing packages: ${to_install[@]}"
-    sudo apt-get update -qq
-    sudo apt-get install ${to_install[@]} -yqq
 fi
 
 # Move to non-shared folder to install GNURadio
