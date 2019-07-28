@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Install packages
 sudo add-apt-repository -y ppa:pi-rho/dev
 sudo apt update --fix-missing 
