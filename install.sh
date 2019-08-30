@@ -13,19 +13,7 @@ else
     echo "No \`conda\` install found. Either conda has not been initialized with this shell, or is not installed."
     echo "Installing now..."
 
-	# Install conda
-    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.6.14-Linux-x86_64.sh -O ~/miniconda.sh
-    bash ~/miniconda.sh -b -p $HOME/miniconda3
-    rm ~/miniconda.sh
-	
-	# Activate and clean conda
-	. ~/miniconda3/etc/profile.d/conda.sh
-	conda activate base
-	conda clean -tipsy
-	
-	# Set up bashrc to work with conda
-	echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-	echo "conda activate base" >> ~/.bashrc
+    ./scripts/install-conda.sh $HOME/miniconda3
 fi
 
 # Move to non-shared folder to install GNURadio
@@ -35,12 +23,7 @@ cd ~/
 if [[ -d gnuradio ]]; then # for file "if [-f /home/rama/file]"
     echo "Repository already found"
 else
-    echo "Setting up repository ..."
-    git clone -q --recurse-submodules --depth 1 https://github.com/gnuradio/gnuradio
-	cd gnuradio
-	git fetch -q --tags
-	git checkout v3.8.0.0-rc2
-	cd ..
+    ./scripts/clone-gnuradio.sh
 fi
 
 cd gnuradio
