@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-echo "Setting up environment variables for gnuradio"
+INSTALL_DIR=$1
+
+echo "Setting up environment variables for gnuradio in $INSTALL_DIR"
 
 # Environment var setup + config
 var_tag="# gnuradio_install_variables"

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# This script clones, builds, links, and installs GNURadio and sets it up with an existing miniconda python installation
 # Make sure to exit if any sub-script fails
 set -e
 
@@ -18,6 +19,8 @@ conda_env=dsp
 
 cd gnuradio
 
-../compile.sh $1/envs/$conda_env
+install_dir=$1/envs/$conda_env
 
-../setup-gnuradio-vars.sh
+../compile.sh $install_dir
+
+../setup-gnuradio-vars.sh $install_dir

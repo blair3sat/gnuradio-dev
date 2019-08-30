@@ -22,4 +22,5 @@ else
     sudo ldconfig
 fi
 
-ln -s $INSTALL_DIR/lib/python3.7/dist-packages/ $INSTALL_DIR/lib/python3.7/site-packages
+ln -s $INSTALL_DIR/lib/python3.7/dist-packages/gnuradio $INSTALL_DIR/lib/python3.7/site-packages/gnuradio
+ln -s $INSTALL_DIR/lib/python3.7/dist-packages/pmt $INSTALL_DIR/lib/python3.7/site-packages/pmt
