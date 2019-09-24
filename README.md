@@ -33,11 +33,12 @@ To use the docker image, run
 
 ``` 
 docker build -t blair3sat/gnuradio -f docker/Dockerfile .
-``
+```
 
 to build it. Run:
 
 Set your `XAUTH` variable (usually `~/.Xauthority`)
+
 ```
 docker run -it --network=host --env DISPLAY=$DISPLAY --volume $XAUTH:/root/.Xauthority blair3sat/gnuradio
 ```
